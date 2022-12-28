@@ -19,7 +19,10 @@
       <span class="text-xl font-black">Security</span>
     </a>
     <div>
-      <a href="{{ route('welcome') }}" class="rounded-md bg-green-600 py-3 px-4 font-semibold text-white shadow-lg transition duration-150 ease-in-out hover:bg-green-700 hover:shadow-xl focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Log out</a>
+      <form action="{{ route('logout') }}" method="POST">
+        @csrf
+        <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();" class="rounded-md bg-green-600 py-3 px-4 font-semibold text-white shadow-lg transition duration-150 ease-in-out hover:bg-green-700 hover:shadow-xl focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Log out</a>
+      </form>
     </div>
   </header>
   <main>

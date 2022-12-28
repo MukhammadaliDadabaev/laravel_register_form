@@ -22,11 +22,11 @@ class LoginController extends Controller
       'password' => ['required', 'string'],
     ]);
 
-    if (!Auth::attempt($credentials)) {
+    if (!Auth::attempt($credentials, $request->boolean('remember'))) {
 
       //----------> BU 2-USUL
       throw ValidationException::withMessages([
-        'email' => 'These credentials do not match our records.'
+        'email' => trans('auth.failed')
       ]);
 
       // //-----------> BU 1-USUL
@@ -37,6 +37,18 @@ class LoginController extends Controller
       //   ]);
     }
 
+    $request->session->regenerate();
+
     return redirect()->intended(RouteServiceProvider::HOME);
+  }
+
+  public function destroy(Request $request)
+  {
+    Auth::logout();
+
+    $request->session->invalidate();
+    $request->session->regenerateToken();
+
+    return redirect()->route('welcome');
   }
 }
